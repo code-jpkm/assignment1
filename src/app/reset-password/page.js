@@ -1,4 +1,4 @@
-import ResetPasswordClient from "./ResetPasswordClient"
+import ResetPasswordClient from "./ResetPasswordClient.js"
 
 export default function ResetPasswordPage({ searchParams }) {
   const token = searchParams?.token || ""
