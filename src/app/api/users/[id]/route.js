@@ -9,7 +9,6 @@ export async function PUT(req, { params }) {
       return Response.json({ error: "Name, email and phone are required" }, { status: 400 })
     }
 
-    // Prevent duplicate email
     const dup = await query(
       "SELECT id FROM users WHERE email = $1 AND id <> $2",
       [email, id]

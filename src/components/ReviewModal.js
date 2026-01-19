@@ -14,9 +14,7 @@ export default function ReviewModal({ submission, onClose, onComplete }) {
 
   const toDataUrl = (value, mime) => {
     if (!value) return ""
-    // already a URL or data-uri
     if (typeof value === "string" && (value.startsWith("data:") || value.startsWith("http"))) return value
-    // raw base64
     return `data:${mime};base64,${value}`
   }
   const money = (v) => {
@@ -25,7 +23,6 @@ export default function ReviewModal({ submission, onClose, onComplete }) {
   }
 
   useEffect(() => {
-    // lock background scroll
     const prev = document.body.style.overflow
     document.body.style.overflow = "hidden"
 
@@ -49,7 +46,6 @@ export default function ReviewModal({ submission, onClose, onComplete }) {
         const res = await apiClient.getSubmissionDetail(submission.id)
         if (alive) setDetail(res.data)
       } catch (e) {
-        // non-fatal: still allow decision
         console.error("Failed to load submission detail", e)
         if (alive) setDetailError(e?.message || "Failed to load attachments")
       } finally {
@@ -92,7 +88,6 @@ export default function ReviewModal({ submission, onClose, onComplete }) {
   return (
     <div className="modal-backdrop" onMouseDown={onClose}>
       <div className="modal-panel" onMouseDown={(e) => e.stopPropagation()} role="dialog" aria-modal="true">
-        {/* Header */}
         <div className="modal-header">
           <div className="flex items-center gap-3">
             <h3 className="text-lg sm:text-xl font-extrabold text-white">Review Submission</h3>
@@ -102,10 +97,7 @@ export default function ReviewModal({ submission, onClose, onComplete }) {
             ✕
           </button>
         </div>
-
-        {/* Content */}
         <div className="p-5 sm:p-6 space-y-5 max-h-[80vh] overflow-y-auto">
-          {/* User */}
           <div className="dropzone">
             <h4 className="text-white font-extrabold mb-3">User Details</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
@@ -128,7 +120,6 @@ export default function ReviewModal({ submission, onClose, onComplete }) {
             </div>
           </div>
 
-          {/* Return */}
           <div className="dropzone">
             <h4 className="text-white font-extrabold mb-3">Return Details ({s.financialYear})</h4>
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 text-sm">
@@ -163,7 +154,6 @@ export default function ReviewModal({ submission, onClose, onComplete }) {
             </div>
           </div>
 
-          {/* Attachments */}
           <div className="dropzone">
             <div className="flex items-center justify-between gap-3 mb-3">
               <h4 className="text-white font-extrabold">Documents</h4>
@@ -201,7 +191,6 @@ export default function ReviewModal({ submission, onClose, onComplete }) {
             </div>
           </div>
 
-          {/* Decision */}
           <form onSubmit={handleSubmit} className="dropzone">
             <h4 className="text-white font-extrabold mb-3">Decision</h4>
 

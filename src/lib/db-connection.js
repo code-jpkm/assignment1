@@ -1,6 +1,5 @@
 const { Pool } = require("pg")
 
-// Create a connection pool for PostgreSQL
 let pool = null
 
 const getPool = () => {
@@ -12,13 +11,11 @@ const getPool = () => {
     pool = new Pool({
       connectionString: process.env.DATABASE_URL,
 
-      // Neon needs SSL (even in development)
       ssl: { rejectUnauthorized: false },
 
       max: 20,
       idleTimeoutMillis: 30000,
 
-      // 2 seconds is too low for cloud DBs
       connectionTimeoutMillis: 20000,
     })
 
@@ -31,7 +28,6 @@ const getPool = () => {
   return pool
 }
 
-// Query function with error handling
 const query = async (text, params = []) => {
   const client = await getPool().connect()
   try {

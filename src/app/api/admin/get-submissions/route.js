@@ -10,13 +10,11 @@ export async function GET(req) {
 
     const decoded = verifyToken(token)
 
-    // Check if user is admin
     const adminCheck = await query("SELECT role FROM users WHERE id = $1", [decoded.userId])
     if (adminCheck.rows.length === 0 || adminCheck.rows[0].role !== "admin") {
       return Response.json({ error: "Admin access required" }, { status: 403 })
     }
 
-    // Get all submissions with user details
     const result = await query(
       `SELECT 
         ar.id, ar.user_id, ar.financial_year, ar.total_income, ar.total_spent, 

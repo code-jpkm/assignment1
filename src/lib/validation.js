@@ -1,4 +1,3 @@
-// Form validation utilities
 
 export const validation = {
   email: {

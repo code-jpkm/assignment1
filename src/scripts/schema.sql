@@ -1,6 +1,4 @@
--- PostgreSQL Schema for Annual Return Declaration System
 
--- Create Users table
 CREATE TABLE IF NOT EXISTS users (
   id SERIAL PRIMARY KEY,
   email VARCHAR(255) UNIQUE NOT NULL,
@@ -13,7 +11,6 @@ CREATE TABLE IF NOT EXISTS users (
   updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create Annual Returns table
 CREATE TABLE IF NOT EXISTS annual_returns (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -34,7 +31,6 @@ CREATE TABLE IF NOT EXISTS annual_returns (
   UNIQUE(user_id, financial_year)
 );
 
--- Create OTP table
 CREATE TABLE IF NOT EXISTS otps (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -45,7 +41,6 @@ CREATE TABLE IF NOT EXISTS otps (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Create Notifications table
 CREATE TABLE IF NOT EXISTS notifications (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -56,7 +51,6 @@ CREATE TABLE IF NOT EXISTS notifications (
   created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
 );
 
--- Password reset tokens
 CREATE TABLE IF NOT EXISTS password_resets (
   id SERIAL PRIMARY KEY,
   user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE,
@@ -69,7 +63,6 @@ CREATE TABLE IF NOT EXISTS password_resets (
 CREATE INDEX IF NOT EXISTS idx_password_resets_user_id ON password_resets(user_id);
 CREATE INDEX IF NOT EXISTS idx_password_resets_token_hash ON password_resets(token_hash);
 
--- Create indexes for better performance
 CREATE INDEX IF NOT EXISTS idx_users_email ON users(email);
 CREATE INDEX IF NOT EXISTS idx_users_role ON users(role);
 CREATE INDEX IF NOT EXISTS idx_returns_user_id ON annual_returns(user_id);

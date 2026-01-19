@@ -4,7 +4,6 @@ const jwt = require("jsonwebtoken")
 const JWT_SECRET = process.env.JWT_SECRET || "your-super-secret-jwt-key-change-in-production"
 const JWT_EXPIRATION = "7d"
 
-// Hash password
 const hashPassword = async (password) => {
   try {
     const salt = await bcrypt.genSalt(10)
@@ -14,7 +13,6 @@ const hashPassword = async (password) => {
   }
 }
 
-// Verify password
 const verifyPassword = async (password, hash) => {
   try {
     return await bcrypt.compare(password, hash)
@@ -23,7 +21,6 @@ const verifyPassword = async (password, hash) => {
   }
 }
 
-// Generate JWT token
 const generateToken = (userId, email, role) => {
   try {
     return jwt.sign({ userId, email, role }, JWT_SECRET, { expiresIn: JWT_EXPIRATION })
@@ -32,7 +29,6 @@ const generateToken = (userId, email, role) => {
   }
 }
 
-// Verify JWT token
 const verifyToken = (token) => {
   try {
     return jwt.verify(token, JWT_SECRET)
@@ -41,12 +37,10 @@ const verifyToken = (token) => {
   }
 }
 
-// Generate OTP
 const generateOTP = () => {
   return Math.floor(100000 + Math.random() * 900000).toString()
 }
 
-// Generate auto password
 const generateAutoPassword = () => {
   const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*"
   let password = ""

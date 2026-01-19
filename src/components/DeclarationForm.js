@@ -185,7 +185,6 @@ export default function DeclarationForm() {
               <p className="help-text">Choose the year for which you are filing the declaration.</p>
             </div>
 
-            {/* Money grid */}
             <div className="dropzone">
               <div className="flex items-center justify-between gap-3 mb-4">
                 <h4 className="text-white font-extrabold">Income & Expenditure</h4>
@@ -208,7 +207,6 @@ export default function DeclarationForm() {
               </div>
             </div>
 
-            {/* Uploads */}
             <div className="dropzone">
               <div className="flex items-center justify-between gap-3 mb-4">
                 <h4 className="text-white font-extrabold">Upload Documents</h4>
@@ -252,7 +250,6 @@ export default function DeclarationForm() {
               </div>
             </div>
 
-            {/* CTA */}
             <button
               type="submit"
               disabled={loading}

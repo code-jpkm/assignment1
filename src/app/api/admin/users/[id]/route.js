@@ -10,7 +10,7 @@ export async function PUT(req, ctx) {
 
     const decoded = verifyToken(token)
 
-    // Admin check
+  
     const adminCheck = await query("SELECT role FROM users WHERE id = $1", [decoded.userId])
     if (adminCheck.rows.length === 0 || adminCheck.rows[0].role !== "admin") {
       return Response.json({ error: "Admin access required" }, { status: 403 })
@@ -66,7 +66,7 @@ export async function DELETE(req, ctx) {
 
     const decoded = verifyToken(token)
 
-    // Admin check
+
     const adminCheck = await query("SELECT role FROM users WHERE id = $1", [decoded.userId])
     if (adminCheck.rows.length === 0 || adminCheck.rows[0].role !== "admin") {
       return Response.json({ error: "Admin access required" }, { status: 403 })

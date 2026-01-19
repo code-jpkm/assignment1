@@ -4,7 +4,6 @@ import Link from "next/link"
 export default function Home() {
   return (
     <div className="app-bg flex flex-col">
-      {/* Navigation */}
       <nav className="nav-surface">
         <div className="container-page py-4">
           <div className="flex justify-between items-center">
@@ -21,7 +20,6 @@ export default function Home() {
         </div>
       </nav>
 
-      {/* Main Content */}
       <main className="flex-1 flex flex-col items-center justify-center px-4 py-12 sm:py-16 lg:py-20">
         <div className="text-center max-w-2xl mx-auto">
           <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white mb-6 leading-tight">
@@ -43,7 +41,6 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Features */}
         <div className="mt-16 grid grid-cols-1 md:grid-cols-3 gap-8 max-w-4xl mx-auto px-4">
           <div className="card card-hover">
             <div className="w-12 h-12 bg-blue-600 rounded-xl flex items-center justify-center mb-4 badge-float">

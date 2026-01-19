@@ -69,7 +69,6 @@ export async function GET(req, { params }) {
         submissionDate: row.submission_date,
         approvedDate: row.approved_date,
         rejectionReason: row.rejection_reason,
-        // Stored values may be raw base64 OR already a data-uri.
         signatureFile: asDataUrl(row.signature_file, "image/png"),
         declarationPdf: asDataUrl(row.declaration_pdf, "application/pdf"),
         userName: row.user_name,

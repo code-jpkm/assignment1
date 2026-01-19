@@ -54,7 +54,6 @@ export default function UserDashboard() {
       <UserNavbar user={user} onLogout={handleLogout} />
 
       <main className="container-page py-6 sm:py-10 space-y-6 sm:space-y-8">
-        {/* Hero */}
         <div className="surface p-6 sm:p-8">
           <p className="text-sm text-slate-500">
             {greeting}, <span className="font-semibold text-slate-800">{user?.name || "User"}</span>
@@ -67,7 +66,6 @@ export default function UserDashboard() {
           </p>
         </div>
 
-        {/* Tabs */}
         <div className="sticky-tabs p-2">
           <div className="tabbar mb-0 border-0 pb-0 px-1">
             <button

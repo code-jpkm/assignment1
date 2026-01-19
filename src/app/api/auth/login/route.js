@@ -26,8 +26,6 @@ export async function POST(request) {
       return NextResponse.json({ error: "Invalid credentials" }, { status: 401 });
     }
 
-    // IMPORTANT: match your auth-utils signature:
-    // If your generateToken expects (userId, email, role), keep it like below:
     const token = generateToken(user.id, user.email, user.role);
 
     return NextResponse.json({

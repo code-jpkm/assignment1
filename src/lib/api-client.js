@@ -1,4 +1,3 @@
-// Client-side API calls with JWT token handling
 const API_BASE_URL = process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000"
 
 export const apiClient = {
@@ -16,10 +15,6 @@ export const apiClient = {
       ...options,
       headers,
     })
-
-    // If unauthorized, clear token and kick user out.
-    // IMPORTANT: Do NOT auto-redirect for the login endpoint itself,
-    // otherwise wrong-password attempts will bounce users to the homepage.
     const isAuthEndpoint = endpoint.startsWith("/auth/")
     const isLoginAttempt = endpoint === "/auth/login"
 
@@ -39,7 +34,6 @@ export const apiClient = {
     return data
   },
 
-  // Auth endpoints
   login(email, password, role) {
     return this.request("/auth/login", {
       method: "POST",
@@ -68,7 +62,6 @@ export const apiClient = {
     })
   },
 
-  // Admin endpoints
   createUser(name, email, phone, address) {
     return this.request("/auth/create-user", {
       method: "POST",
@@ -76,7 +69,6 @@ export const apiClient = {
     })
   },
 
-  // ✅ Users (Admin CRUD)
   getUsers() {
     return this.request("/admin/get-users", { method: "GET" })
   },
@@ -92,7 +84,6 @@ export const apiClient = {
     return this.request(`/admin/users/${id}`, { method: "DELETE" })
   },
 
-  // Submissions
   getSubmissions() {
     return this.request("/admin/get-submissions", { method: "GET" })
   },
@@ -108,7 +99,6 @@ export const apiClient = {
     })
   },
 
-  // User endpoints
   checkReturnStatus(year) {
     return this.request("/returns/check", {
       method: "POST",
@@ -135,7 +125,6 @@ export const apiClient = {
   },
 }
 
-// Token management
 export const tokenManager = {
   setToken(token, user) {
     if (typeof window !== "undefined") {

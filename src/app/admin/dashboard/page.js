@@ -36,7 +36,6 @@ export default function AdminDashboard() {
   }, [router])
 
   useEffect(() => {
-    // Lightweight stats for hero cards (optional but WOW)
     const loadStats = async () => {
       try {
         const [uRes, sRes] = await Promise.all([apiClient.getUsers?.(), apiClient.getSubmissions?.()])
@@ -47,7 +46,6 @@ export default function AdminDashboard() {
         const pending = subs.filter((x) => x.status === "submitted").length
         setStats({ users, submissions, approved, pending })
       } catch {
-        // If endpoints not available or fail, keep defaults
       }
     }
     if (!loading) loadStats()
@@ -83,7 +81,6 @@ export default function AdminDashboard() {
       <AdminNavbar user={user} onLogout={handleLogout} />
 
       <main className="container-page py-6 sm:py-10 space-y-6 sm:space-y-8">
-        {/* Hero */}
         <div className="surface p-6 sm:p-8 overflow-hidden relative">
           <div className="absolute -top-24 -right-24 w-80 h-80 rounded-full bg-blue-500/10 blur-3xl" />
           <div className="absolute -bottom-24 -left-24 w-80 h-80 rounded-full bg-amber-400/10 blur-3xl" />
@@ -100,7 +97,6 @@ export default function AdminDashboard() {
             </p>
           </div>
 
-          {/* Stats */}
           <div className="relative grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mt-6">
             <StatCard title="Total Users" value={stats.users} subtitle="Registered accounts" />
             <StatCard title="Total Submissions" value={stats.submissions} subtitle="All-time returns" />
@@ -109,7 +105,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Tabs (sticky + mobile friendly) */}
         <div className="sticky-tabs p-2">
           <div className="tabbar mb-0 border-0 pb-0 px-1">
             <button
@@ -127,7 +122,6 @@ export default function AdminDashboard() {
           </div>
         </div>
 
-        {/* Content with smooth entrance */}
         <section key={activeTab} className="fade-in">
           {activeTab === "submissions" && <SubmissionsList />}
           {activeTab === "users" && <UserManagement />}

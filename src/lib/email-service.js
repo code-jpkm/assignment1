@@ -1,15 +1,13 @@
 const nodemailer = require("nodemailer")
 
-// Configure Gmail SMTP
 const transporter = nodemailer.createTransport({
   service: "gmail",
   auth: {
     user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_PASSWORD, // Use app-specific password
+    pass: process.env.GMAIL_PASSWORD,
   },
 })
 
-// Send OTP email
 const sendOTPEmail = async (email, otp, userName) => {
   try {
     const mailOptions = {
@@ -45,7 +43,6 @@ const sendOTPEmail = async (email, otp, userName) => {
   }
 }
 
-// Send approval email
 const sendApprovalEmail = async (email, userName, financialYear) => {
   try {
     const mailOptions = {
@@ -80,7 +77,6 @@ const sendApprovalEmail = async (email, userName, financialYear) => {
   }
 }
 
-// Send rejection email
 const sendRejectionEmail = async (email, userName, financialYear, reason) => {
   try {
     const mailOptions = {
@@ -116,7 +112,6 @@ const sendRejectionEmail = async (email, userName, financialYear, reason) => {
   }
 }
 
-// Send submission confirmation email
 const sendSubmissionEmail = async (email, userName, financialYear) => {
   try {
     const mailOptions = {
@@ -151,9 +146,6 @@ const sendSubmissionEmail = async (email, userName, financialYear) => {
   }
 }
 
-// Send welcome / credentials email to a newly created user
-// Note: In production you should avoid sending passwords via email.
-// For this assignment/demo, we do so to meet the requirement.
 const sendWelcomeEmail = async (email, userName, loginUrl, loginId, tempPassword) => {
   try {
     const safeName = userName || "User"
@@ -199,7 +191,6 @@ const sendWelcomeEmail = async (email, userName, loginUrl, loginId, tempPassword
   }
 }
 
-// Send password reset email
 const sendPasswordResetEmail = async (email, userName, resetUrl) => {
   try {
     const safeName = userName || "User"

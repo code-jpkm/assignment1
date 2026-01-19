@@ -15,7 +15,6 @@ export async function POST(req) {
       return Response.json({ error: "Year is required" }, { status: 400 })
     }
 
-    // Check if return already exists for this year
     const result = await query(
       `SELECT 
          id,

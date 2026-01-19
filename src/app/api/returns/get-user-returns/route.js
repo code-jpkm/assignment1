@@ -10,7 +10,6 @@ export async function GET(req) {
 
     const decoded = verifyToken(token)
 
-    // Get all returns for the user
     const result = await query(
       `SELECT 
         id, financial_year, total_income, total_spent, total_savings, 

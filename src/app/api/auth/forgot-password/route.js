@@ -17,7 +17,6 @@ export async function POST(request) {
       return NextResponse.json({ error: "Email and role are required" }, { status: 400 })
     }
 
-    // Always respond 200 to avoid account enumeration (but still do the work if user exists)
     const userResult = await query("SELECT id, name, email FROM users WHERE email = $1 AND role = $2", [email, role])
 
     if (userResult.rows.length === 0) {
@@ -28,9 +27,8 @@ export async function POST(request) {
 
     const rawToken = crypto.randomBytes(32).toString("hex")
     const tokenHash = sha256(rawToken)
-    const expiresAt = new Date(Date.now() + 30 * 60 * 1000) // 30 minutes
+    const expiresAt = new Date(Date.now() + 30 * 60 * 1000)
 
-    // Invalidate previous unused tokens
     await query("UPDATE password_resets SET used = TRUE WHERE user_id = $1 AND used = FALSE", [user.id])
 
     await query(
@@ -44,7 +42,6 @@ export async function POST(request) {
     try {
       await sendPasswordResetEmail(user.email, user.name, resetUrl)
     } catch (e) {
-      // Don't leak email errors to client
       console.error("Password reset email failed:", e)
     }
 

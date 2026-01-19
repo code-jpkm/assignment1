@@ -16,7 +16,6 @@ export async function POST(req) {
       return Response.json({ error: "Missing required fields" }, { status: 400 })
     }
 
-    // Find OTP
     const otpResult = await query(
       `SELECT id, is_verified, expires_at FROM otps 
        WHERE return_id = $1 AND user_id = $2 AND otp_code = $3`,
@@ -29,26 +28,21 @@ export async function POST(req) {
 
     const otpRecord = otpResult.rows[0]
 
-    // Check if OTP is already verified
     if (otpRecord.is_verified) {
       return Response.json({ error: "OTP already verified" }, { status: 400 })
     }
 
-    // Check if OTP expired
     if (new Date(otpRecord.expires_at) < new Date()) {
       return Response.json({ error: "OTP expired" }, { status: 400 })
     }
 
-    // Mark OTP as verified
     await query("UPDATE otps SET is_verified = TRUE WHERE id = $1", [otpRecord.id])
 
-    // OTP verified => NOW we consider the return officially submitted (pending admin review)
     await query(
       `UPDATE annual_returns SET status = $1, submission_date = CURRENT_TIMESTAMP WHERE id = $2`,
       ["submitted", returnId],
     )
 
-    // Send submission confirmation email (under review)
     try {
       const userResult = await query("SELECT email, name FROM users WHERE id = $1", [decoded.userId])
       const user = userResult.rows[0]

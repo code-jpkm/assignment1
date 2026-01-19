@@ -1,9 +1,6 @@
 const fs = require("fs")
 const path = require("path")
 
-// This script will be run to initialize the PostgreSQL database
-// Make sure you have PostgreSQL installed and running
-// Update the connection details in .env.local file
 
 const dbSchema = `
 -- Create Users table

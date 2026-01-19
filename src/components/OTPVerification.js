@@ -13,7 +13,6 @@ export default function OTPVerification({ returnId }) {
 
   useEffect(() => {
     if (otp.length === 6) {
-      // small micro-interaction: auto blur on completion
       const el = document.getElementById("otp-input")
       el?.blur?.()
     }
